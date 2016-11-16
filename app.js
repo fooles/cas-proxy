@@ -39,9 +39,10 @@ function run_one(config, subconfig) {
   });
 
   var proxied_hostname = url.parse(subconfig.proxy_url).hostname;
+
   app.use(function(req, res, next) {
     // modify req host header
-    console.log('cas_user_name',req.session.cas_user_name);
+    console.log('cas_user_name',req.session);
     isReplaceHostname = (subconfig.replaceHostname===undefined)? (config.replaceHostname || false) : subconfig.replaceHostname
     if (isReplaceHostname) {
       req['headers'].host = proxied_hostname;
